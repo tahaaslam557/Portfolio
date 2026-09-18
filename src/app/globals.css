@@ -8,8 +8,8 @@
   --color-surface: #0e111a;
   --color-surface-2: #151926;
   --color-fg: #f4f5fa;
-  --color-fg-2: #aab0c3;
-  --color-fg-3: #6d7389;
+  --color-fg-2: #b7bdd0;
+  --color-fg-3: #858ba3;
   --color-line: rgba(170, 186, 255, 0.11);
   --color-line-strong: rgba(170, 186, 255, 0.2);
   --color-accent: #ff6b3d;
@@ -125,10 +125,10 @@ html[data-intro="done"] #intro-loader {
 
 @utility label-mono {
   font-family: var(--font-mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  line-height: 1;
+  line-height: 1.6;
 }
 
 @utility display {

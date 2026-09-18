@@ -9,7 +9,7 @@ export function AboutSection() {
       aria-labelledby="about-title"
       className="ambient-soft scroll-mt-20 border-t border-line"
     >
-      <div className="container-x section-y">
+      <div className="container-x pt-[var(--section)] pb-[calc(var(--section)/3)]">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-8">
             <SectionHeading
@@ -42,7 +42,7 @@ export function AboutSection() {
               </p>
             </Reveal>
             <Reveal delay={0.2}>
-              <dl className="label-mono mt-10 grid grid-cols-2 gap-x-6 gap-y-3 text-fg-3">
+              <dl className="label-mono mt-10 grid grid-cols-[auto_1fr] gap-x-8 gap-y-3 text-fg-3">
                 <dt>Focus</dt>
                 <dd className="text-fg-2">Design + Frontend</dd>
                 <dt>Platforms</dt>

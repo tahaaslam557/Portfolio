@@ -90,7 +90,7 @@ export function ProjectCard({ project, priority }: Props) {
         <h3 className="display mt-4 text-[length:clamp(1.75rem,2.6vw,3.2rem)] transition-transform duration-500 [transition-timing-function:var(--ease-out-expo)] group-hover:translate-x-1.5 motion-reduce:transition-none">
           {project.title}
         </h3>
-        <p className="mt-4 max-w-md text-fg-2">{project.shortDescription}</p>
+        <p className="mt-4 max-w-md leading-relaxed text-fg-2">{project.shortDescription}</p>
       </div>
       <dl className="label-mono grid gap-2 text-fg-3 sm:min-w-56">
         <div className="flex justify-between gap-4 border-b border-line pb-2">
@@ -120,18 +120,18 @@ export function ProjectCard({ project, priority }: Props) {
   );
 
   return (
-    <li className="border-t border-line py-10 sm:py-14 lg:py-20">
+    <li className="border-t border-line py-10 sm:py-12 lg:py-14">
       <Link
         href={href}
         className={cn(
-          "group grid gap-8 outline-none lg:gap-12",
+          "group grid gap-8 outline-none lg:gap-10",
           layout === "lead" &&
             "lg:grid-cols-12 lg:items-end [&>*:first-child]:lg:col-span-8 [&>*:last-child]:lg:col-span-4",
           layout === "reverse" &&
             "lg:grid-cols-12 lg:items-end [&>*:first-child]:lg:col-span-8 [&>*:first-child]:lg:col-start-5 [&>*:first-child]:lg:row-start-1 [&>*:last-child]:lg:col-span-4 [&>*:last-child]:lg:col-start-1 [&>*:last-child]:lg:row-start-1",
           layout === "full" && "",
           layout === "split" &&
-            "lg:grid-cols-12 lg:items-start [&>*:first-child]:lg:col-span-7 [&>*:first-child]:lg:col-start-2 [&>*:last-child]:lg:col-span-3 [&>*:last-child]:lg:col-start-10 [&>*:last-child]:lg:pt-16",
+            "lg:grid-cols-12 lg:items-center [&>*:first-child]:lg:col-span-7 [&>*:last-child]:lg:col-span-4 [&>*:last-child]:lg:col-start-9",
         )}
         data-cursor="view"
         aria-label={`${project.title} — ${project.category}`}

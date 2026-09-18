@@ -18,7 +18,7 @@ export function ProjectIndex({ projects }: { projects: ProjectWithMedia[] }) {
             title={["Selected", "Work"]}
             id="work-title"
           />
-          <p className="label-mono max-w-xs text-fg-3">
+          <p className="label-mono max-w-xs text-fg-2">
             <span className="text-fg">({pad(projects.length)})</span> projects,
             presented as case studies. Each links to the live site.
           </p>

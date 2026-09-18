@@ -23,7 +23,7 @@ function Counter({
     String(Math.min(n, Math.floor(v * n) + 1)).padStart(2, "0"),
   );
   return (
-    <div className="label-mono mb-6 flex items-center gap-4 text-fg-3">
+    <div className="label-mono mb-4 flex items-center gap-4 text-fg-3 sm:mb-6">
       <span>Where the work lives</span>
       <span className="h-px w-8 bg-line-strong" aria-hidden="true" />
       <motion.span className="text-fg">{index}</motion.span>
@@ -66,11 +66,11 @@ function AnimatedWords() {
   });
 
   return (
-    <div ref={ref} className="relative h-[320vh]">
+    <div ref={ref} className="relative h-[240vh] lg:h-[300vh]">
       <div className="sticky top-0 flex h-[100svh] items-center overflow-hidden">
         <div className="container-x relative">
           <Counter progress={scrollYProgress} n={WORDS.length} />
-          <div className="relative h-[1.1em] text-[length:var(--step-5)]">
+          <div className="relative h-[1.1em] overflow-hidden text-[length:var(--step-5)]">
             {WORDS.map((w, i) => (
               <Word
                 key={w}
@@ -116,7 +116,7 @@ function Word({
   const y = useTransform(
     progress,
     [start, inAt, outAt, end],
-    [i === 0 ? 0 : 80, 0, 0, i === n - 1 ? 0 : -80],
+    [i === 0 ? "0%" : "110%", "0%", "0%", i === n - 1 ? "0%" : "-110%"],
   );
 
   return (

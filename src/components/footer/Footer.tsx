@@ -17,7 +17,7 @@ export function Footer() {
         <span className="hidden text-center sm:block">
           Design / Development / Digital
         </span>
-        <span className="flex items-center justify-end gap-6">
+        <span className="flex items-center justify-end gap-4 whitespace-nowrap sm:gap-6">
           <span>© {year}</span>
           <BackToTop />
         </span>
