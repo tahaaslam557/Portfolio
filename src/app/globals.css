@@ -1,26 +1,275 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------
+   Design tokens — the single source of truth for the visual system.
+   ------------------------------------------------------------------ */
+@theme {
+  --color-bg: #07090f;
+  --color-surface: #0e111a;
+  --color-surface-2: #151926;
+  --color-fg: #f4f5fa;
+  --color-fg-2: #aab0c3;
+  --color-fg-3: #6d7389;
+  --color-line: rgba(170, 186, 255, 0.11);
+  --color-line-strong: rgba(170, 186, 255, 0.2);
+  --color-accent: #ff6b3d;
+  --color-accent-ink: #14070a;
+  --color-accent-2: #7c6cff;
+
+  --font-display: var(--font-display), "Space Grotesk", system-ui, sans-serif;
+  --font-sans: var(--font-sans), "Geist", system-ui, sans-serif;
+  --font-mono: var(--font-mono), "Geist Mono", ui-monospace, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-xs: 26.25rem; /* 420px */
+  --breakpoint-2xl: 90rem; /* 1440px */
+  --breakpoint-3xl: 110rem; /* 1760px */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  --shadow-frame:
+    0 40px 120px -40px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(170, 186, 255, 0.07) inset;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Fluid type scale (clamped between phone and large desktop) */
+  --step--1: clamp(0.78rem, 0.74rem + 0.2vw, 0.9rem);
+  --step-0: clamp(0.95rem, 0.9rem + 0.25vw, 1.1rem);
+  --step-1: clamp(1.15rem, 1.05rem + 0.5vw, 1.5rem);
+  --step-2: clamp(1.5rem, 1.2rem + 1.4vw, 2.5rem);
+  --step-3: clamp(2.2rem, 1.5rem + 3.2vw, 4.5rem);
+  --step-4: clamp(3rem, 1.6rem + 6.5vw, 8rem);
+  --step-5: clamp(3.6rem, 1.2rem + 10.5vw, 13rem);
+
+  /* Layout rhythm */
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+  --section: clamp(6rem, 12vw, 12rem);
+  --container: 100rem; /* 1600px */
+
+  /* Motion tokens */
+  --dur-micro: 220ms;
+  --dur-normal: 550ms;
+  --dur-hero: 900ms;
+
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+html {
+  background: var(--color-bg);
+  background-image: radial-gradient(
+    90rem 60rem at 50% -20%,
+    rgba(124, 108, 255, 0.08),
+    transparent 60%
+  );
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: transparent;
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.55;
+  font-feature-settings: "ss01", "cv11";
+  overflow-x: clip;
+  min-height: 100dvh;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Visible focus for keyboard users, invisible for pointer clicks */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Hide the whole intro overlay before hydration for repeat visitors */
+html[data-intro="done"] #intro-loader {
+  display: none;
+}
+
+/* ------------------------------------------------------------------
+   Utilities
+   ------------------------------------------------------------------ */
+@utility container-x {
+  padding-inline: var(--gutter);
+  margin-inline: auto;
+  max-width: var(--container);
+  width: 100%;
+}
+
+@utility section-y {
+  padding-block: var(--section);
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@utility display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 0.92;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+@utility outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--color-fg);
+  paint-order: stroke fill;
+}
+
+@utility hairline {
+  border-color: var(--color-line);
+}
+
+@utility grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+  mix-blend-mode: overlay;
+}
+
+/* Editorial link underline that draws in from the left */
+@utility link-draw {
+  position: relative;
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: left 100%;
+  transition: background-size var(--dur-normal) var(--ease-out-expo);
+}
+.link-draw:hover,
+.link-draw:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Marquee track — CSS animation, paused on hover, off for reduced motion */
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+.marquee:hover .marquee-track,
+.marquee:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+  }
+  .marquee-track > [aria-hidden="true"] {
+    display: none;
+  }
+}
+
+/* Ambient light — a warm coral glow answered by a cool violet one.
+   Two sources give the dark surface depth; still never a blob field. */
+.ambient {
+  background:
+    radial-gradient(
+      55rem 40rem at 88% 8%,
+      rgba(255, 107, 61, 0.2),
+      transparent 62%
+    ),
+    radial-gradient(
+      48rem 36rem at 4% 96%,
+      rgba(124, 108, 255, 0.16),
+      transparent 65%
+    );
+}
+.ambient-soft {
+  background:
+    radial-gradient(
+      48rem 32rem at 100% 0%,
+      rgba(255, 107, 61, 0.11),
+      transparent 62%
+    ),
+    radial-gradient(
+      36rem 28rem at 0% 100%,
+      rgba(124, 108, 255, 0.09),
+      transparent 60%
+    );
+}
+
+/* Inverted (accent) surface used for the closing section */
+.on-accent {
+  --color-fg: #14070a;
+  --color-fg-2: rgba(20, 7, 10, 0.74);
+  --color-fg-3: rgba(20, 7, 10, 0.56);
+  --color-line: rgba(20, 7, 10, 0.16);
+  --color-line-strong: rgba(20, 7, 10, 0.3);
+  background:
+    radial-gradient(
+      60rem 40rem at 100% 0%,
+      rgba(255, 190, 120, 0.45),
+      transparent 60%
+    ),
+    linear-gradient(135deg, #ff7a45 0%, #ff5f3a 55%, #f24e5c 100%);
+  color: var(--color-fg);
+}
+.on-accent ::selection {
+  background: #14070a;
+  color: var(--color-accent);
+}
+.on-accent .outline-text {
+  -webkit-text-stroke: 1px #14070a;
+}
+
+/* Faint grid used behind the hero — decorative only */
+.bg-grid {
+  background-image:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 96px 96px;
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 60% 40%,
+    #000 20%,
+    transparent 75%
+  );
 }

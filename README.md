@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Taha Aslam — Portfolio
 
-## Getting Started
+An editorial, motion-led portfolio built with **Next.js 16 (App Router) · TypeScript · Tailwind CSS v4 · Motion for React**.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Before you deploy — fill these in
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | Where |
+| --- | --- |
+| Production URL (canonical, OG, sitemap) | `src/data/site.ts` → `site.url` |
+| Contact email | `src/data/site.ts` → `site.email` |
+| Upwork / LinkedIn / GitHub links (hidden while empty) | `src/data/site.ts` → `socials` |
+| Project copy, stack, order, layout variant | `src/data/projects.ts` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Nothing in the data files is invented: platforms were verified against each live site's markup, and every number on the page is computed from `projects.ts`.
 
-## Learn More
+## Project screenshots
 
-To learn more about Next.js, take a look at the following resources:
+Real captures live in `public/projects/<slug>/` (`hero.webp` desktop, `01.webp` mobile, `02.webp` desktop below the fold). Regenerate them any time with the locally installed Chrome:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run capture              # all projects
+npm run capture -- simla     # one slug
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+If a file is missing, the UI shows a clearly-labelled placeholder instead of a fake screenshot.
 
-## Deploy on Vercel
+## QA
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run qa -- http://localhost:3000
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Loads the home page and a project page at 320 → 1920px, records console/page errors, failed requests, horizontal overflow and heading structure, and writes full-page screenshots to `.qa/`. `node scripts/tour.mjs <url> <width> <prefix>` produces viewport-by-viewport contact sheets.
+
+## Structure
+
+```
+src/
+  app/              layout, home, /work/[slug], sitemap, robots, OG image
+  components/       navigation · intro · hero · work · capabilities · stack ·
+                    about · process · proof · contact · footer · ui
+  data/             projects.ts (content) · site.ts (config, capabilities, stack, process)
+  lib/              media.ts (build-time image resolution) · motion.ts (tokens) · hooks.ts
+scripts/            capture.mjs · qa.mjs · tour.mjs
+```
+
+Design tokens (colour, type scale, spacing, motion) are defined once in `src/app/globals.css`.
+
+## Accessibility & motion
+
+- Custom cursor, magnetic buttons, parallax and the intro only run for fine pointers without `prefers-reduced-motion`.
+- Reduced motion swaps scroll-linked sequences for static layouts and stops the marquee.
+- Keyboard: visible focus rings, skip link, Escape closes the mobile menu, focus moves into it on open.
