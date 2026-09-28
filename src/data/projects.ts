@@ -350,6 +350,64 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    id: "maison-rouge",
+    index: 11,
+    title: "Maison Rouge",
+    slug: "maison-rouge",
+    url: "https://irne-store.vercel.app",
+    category: "E-commerce · Concept store",
+    platform: "Next.js",
+    shortDescription:
+      "A Next.js storefront concept for a curated multi-category shop — fashion, electronics, beauty, home and accessories — with editorial merchandising.",
+    services: ["Web Design", "Frontend Development", "E-commerce"],
+    tech: ["Next.js", "React", "Tailwind CSS", "Vercel"],
+    image: img("maison-rouge", 2, "Maison Rouge storefront"),
+    featured: true,
+    accent: "#E0564A",
+    layout: "split",
+    caseStudy: {
+      overview:
+        "Maison Rouge is a storefront concept for a curated store of independent makers. The build covers a category mega-menu, editorial homepage sections, trending products and structured data, deployed on Vercel.",
+      responsibilities: [
+        "Storefront design and merchandising layout",
+        "Next.js / React implementation",
+        "SEO metadata and schema.org structured data",
+      ],
+      notes: [
+        "Six categories share one visual standard, so the layout treats a mug and a pair of headphones with the same editorial weight.",
+      ],
+    },
+  },
+  {
+    id: "tradel-store",
+    index: 12,
+    title: "Tradel Store",
+    slug: "tradel-store",
+    url: "https://tradel-store-final.vercel.app",
+    category: "E-commerce · Marketplace",
+    platform: "Custom",
+    shortDescription:
+      "A React marketplace storefront for Pakistan — electronics, fashion and home — with cart, checkout and cash on delivery.",
+    services: ["Web Design", "Frontend Development", "E-commerce"],
+    tech: ["React", "Vite", "Tailwind CSS", "Vercel"],
+    image: img("tradel-store", 2, "Tradel Store marketplace"),
+    featured: true,
+    accent: "#F5B82E",
+    layout: "lead",
+    caseStudy: {
+      overview:
+        "tradelstore.pk is a multi-category marketplace aimed at Pakistani shoppers. The single-page React app handles browsing by category, search, cart and a cash-on-delivery checkout.",
+      responsibilities: [
+        "Marketplace UI design",
+        "React single-page app built with Vite",
+        "Cart and checkout flow",
+      ],
+      notes: [
+        "Cash on delivery is the default way people pay locally, so it is surfaced throughout the flow rather than hidden at checkout.",
+      ],
+    },
+  },
 ];
 
 export const featuredProjects = projects.filter((p) => p.featured);
@@ -370,8 +428,10 @@ export function getAdjacentProjects(slug: string) {
 export const projectStats = {
   total: projects.length,
   platforms: Array.from(new Set(projects.map((p) => p.platform))),
-  ecommerce: projects.filter((p) =>
-    p.tech.some((t) => /WooCommerce|Shopify|Easy Digital/.test(t)),
+  ecommerce: projects.filter(
+    (p) =>
+      p.services.includes("E-commerce") ||
+      p.tech.some((t) => /WooCommerce|Shopify|Easy Digital/.test(t)),
   ).length,
 };
 

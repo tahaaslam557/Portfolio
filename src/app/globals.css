@@ -261,6 +261,28 @@ html[data-intro="done"] #intro-loader {
   -webkit-text-stroke: 1px #14070a;
 }
 
+/* Restores the dark palette inside an accent surface (e.g. the form card) */
+.on-dark {
+  --color-fg: #f4f5fa;
+  --color-fg-2: #b7bdd0;
+  --color-fg-3: #858ba3;
+  --color-line: rgba(170, 186, 255, 0.11);
+  --color-line-strong: rgba(170, 186, 255, 0.2);
+  color: var(--color-fg);
+}
+.on-dark ::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+}
+
+/* Footer signature — handwritten script */
+.signature {
+  font-family: var(--font-signature-src), "Brush Script MT", cursive;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 /* Faint grid used behind the hero — decorative only */
 .bg-grid {
   background-image:

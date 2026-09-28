@@ -13,8 +13,7 @@ export const site = {
   location: "Remote / Worldwide",
   // TODO: set the real production URL before deploying (used for canonical + OG)
   url: "https://example.com",
-  // TODO: replace with the real contact email
-  email: "hello@example.com",
+  email: "tahaaslam557@gmail.com",
   description:
     "Taha Aslam is a web designer and frontend developer building fast, expressive websites with WordPress, Shopify and Next.js.",
 };
@@ -25,8 +24,17 @@ export const site = {
  */
 export const socials: { label: string; href: string }[] = [
   { label: "Upwork", href: "" },
-  { label: "LinkedIn", href: "" },
-  { label: "GitHub", href: "" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/taha-aslam-53b1402a2/" },
+  { label: "GitHub", href: "https://github.com/tahaaslam557" },
+];
+
+/**
+ * Phone numbers. `digits` is the international form without "+" (used for
+ * tel: and wa.me links); `call` marks numbers that also take voice calls.
+ */
+export const phones: { display: string; digits: string; call: boolean }[] = [
+  { display: "+92 320 3731456", digits: "923203731456", call: true },
+  { display: "+92 317 3943080", digits: "923173943080", call: false },
 ];
 
 export const navLinks = [

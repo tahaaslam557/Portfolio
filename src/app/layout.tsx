@@ -1,5 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Mrs_Saint_Delafield,
+  Space_Grotesk,
+} from "next/font/google";
 import "./globals.css";
 import { site } from "@/data/site";
 import { IntroProvider } from "@/components/intro/IntroProvider";
@@ -20,6 +25,15 @@ const sans = Geist({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+});
+
+/** Handwritten script for the footer signature only. */
+const signature = Mrs_Saint_Delafield({
+  variable: "--font-signature-src",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
+  preload: false,
 });
 
 const mono = Geist_Mono({
@@ -69,7 +83,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} ${signature.variable} h-full antialiased`}
       data-intro="pending"
       suppressHydrationWarning
     >
